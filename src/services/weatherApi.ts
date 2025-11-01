@@ -167,10 +167,25 @@ export const weatherApi = {
     const cached = cache.get(cacheKey);
     if (cached) return cached;
 
-    const url = `${BASE_URL}/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`;
+    const url = `${BASE_URL}/current.json?key=${API_KEY}&q=${lat},${lon}`;
     logRequest('GET', url);
     const response = await axios.get<WeatherResponse>(url);
-    cache.set(cacheKey, response.data);
-    return response.data;
+
+    // Transform icon URL to use HTTPS and ensure proper format
+    const transformedData = {
+      ...response.data,
+      current: {
+        ...response.data.current,
+        condition: {
+          ...response.data.current.condition,
+          icon: response.data.current.condition.icon.startsWith('//')
+            ? `https:${response.data.current.condition.icon}`
+            : response.data.current.condition.icon
+        }
+      }
+    };
+
+    cache.set(cacheKey, transformedData);
+    return transformedData;
   },
 };
