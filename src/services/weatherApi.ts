@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
-const BASE_URL = '/api/weather';
-const GEO_URL = '/api/weather';
+const BASE_URL = 'https://api.weatherapi.com/v1';
+const GEO_URL = 'https://api.weatherapi.com/v1';
 
 // Add logging for debugging
 const logRequest = (method: string, url: string) => {
@@ -156,7 +156,7 @@ export const weatherApi = {
   },
 
   async searchCities(query: string): Promise<GeoResponse[]> {
-    const url = `${GEO_URL}/search.json?key=${API_KEY}&q=${query}`;
+    const url = `${GEO_URL}/weather/search?q=${query}`;
     logRequest('GET', url);
     const response = await axios.get<{ location: GeoResponse[] }>(url);
     return response.data.location || [];
@@ -167,7 +167,7 @@ export const weatherApi = {
     const cached = cache.get(cacheKey);
     if (cached) return cached;
 
-    const url = `${BASE_URL}/current.json?key=${API_KEY}&q=${lat},${lon}`;
+    const url = `${BASE_URL}/weather/current?q=${lat},${lon}`;
     logRequest('GET', url);
     const response = await axios.get<WeatherResponse>(url);
 
