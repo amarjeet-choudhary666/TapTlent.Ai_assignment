@@ -1,0 +1,96 @@
+mutation CreateDemoData @transaction @auth(level: PUBLIC, insecureReason: "This mutation is used to seed the database with demo data and does not require authentication") {
+  user_insertMany(data: [
+    {
+      id: "550e8400-e29b-41d4-a716-446655440000",
+      displayName: "demouser1",
+      createdAt: "2024-04-03T00:00:00Z",
+      email: "demouser1@example.com",
+    },
+    {
+      id: "550e8400-e29b-41d4-a716-446655440001",
+      displayName: "demouser2",
+      createdAt: "2024-04-03T00:00:00Z",
+      email: "demouser2@example.com",
+    }
+  ])
+  movie_insertMany(data: [
+    {
+      id: "550e8400-e29b-41d4-a716-446655440002",
+      title: "Example Movie 1",
+      year: 2023,
+      createdAt: "2024-04-03T00:00:00Z",
+    },
+    {
+      id: "550e8400-e29b-41d4-a716-446655440003",
+      title: "Example Movie 2",
+      year: 2024,
+      createdAt: "2024-04-03T00:00:00Z",
+    }
+  ])
+  list_insertMany(data: [
+    {
+      id: "550e8400-e29b-41d4-a716-446655440004",
+      name: "Example List 1",
+      createdAt: "2024-04-03T00:00:00Z",
+      updatedAt: "2024-04-03T00:00:00Z",
+      isPublic: true,
+      userId: "550e8400-e29b-41d4-a716-446655440000"
+    },
+    {
+      id: "550e8400-e29b-41d4-a716-446655440005",
+      name: "Example List 2",
+      createdAt: "2024-04-03T00:00:00Z",
+      updatedAt: "2024-04-03T00:00:00Z",
+      isPublic: false,
+      userId: "550e8400-e29b-41d4-a716-446655440001"
+    }
+  ])
+  listItem_insertMany(data: [
+    {
+      listId: "550e8400-e29b-41d4-a716-446655440004",
+      movieId: "550e8400-e29b-41d4-a716-446655440002",
+      position: 1
+    },
+    {
+      listId: "550e8400-e29b-41d4-a716-446655440005",
+      movieId: "550e8400-e29b-41d4-a716-446655440003",
+      position: 1
+    }
+  ])
+  watch_insertMany(data: [
+    {
+      id: "550e8400-e29b-41d4-a716-446655440006",
+      movieId: "550e8400-e29b-41d4-a716-446655440002",
+      userId: "550e8400-e29b-41d4-a716-446655440000",
+      createdAt: "2024-04-03T00:00:00Z",
+      watchDate: "2024-04-03"
+    },
+        {
+      id: "550e8400-e29b-41d4-a716-446655440007",
+      movieId: "550e8400-e29b-41d4-a716-446655440003",
+      userId: "550e8400-e29b-41d4-a716-446655440001",
+      createdAt: "2024-04-03T00:00:00Z",
+      watchDate: "2024-04-03"
+    }
+  ])
+    review_insertMany(data: [
+    {
+      id: "550e8400-e29b-41d4-a716-446655440008",
+      movieId: "550e8400-e29b-41d4-a716-446655440002",
+      userId: "550e8400-e29b-41d4-a716-446655440000",
+      watchId: "550e8400-e29b-41d4-a716-446655440006",
+      createdAt: "2024-04-03T00:00:00Z",
+      isPublic: true,
+      rating: 4
+    },
+        {
+      id: "550e8400-e29b-41d4-a716-446655440009",
+      movieId: "550e8400-e29b-41d4-a716-446655440003",
+      userId: "550e8400-e29b-41d4-a716-446655440001",
+      watchId: "550e8400-e29b-41d4-a716-446655440007",
+      createdAt: "2024-04-03T00:00:00Z",
+      isPublic: false,
+      rating: 5
+    }
+  ])
+}
