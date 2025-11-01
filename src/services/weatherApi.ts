@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
-const BASE_URL = 'https://api.weatherapi.com/v1';
-const GEO_URL = 'https://api.weatherapi.com/v1';
+const BASE_URL = '/api/weather';
+const GEO_URL = '/api/weather';
 
 // Add logging for debugging
 const logRequest = (method: string, url: string) => {
